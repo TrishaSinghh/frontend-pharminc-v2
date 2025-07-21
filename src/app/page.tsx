@@ -7,6 +7,8 @@ import { ProfilePreview } from "@/components/Index/ProfilePreview";
 
 import { AppFeedDemo } from "@/components/Index/AppFeedDemo";
 
+import { GlobalMap } from "@/components/Index/GlobalMap";
+
 import { Navbar } from "@/components/Index/Navbar";
 
 export default function Home() {
@@ -31,6 +33,9 @@ export default function Home() {
 
       {/* app feed demo */}
       <AppFeedDemo />
+
+      {/* global map */}
+      <GlobalMap />
     </main>
   );
 }
