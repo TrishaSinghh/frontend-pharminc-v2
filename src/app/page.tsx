@@ -1,9 +1,10 @@
 import { AnimatedBackground } from "@/components/Index/Hero/AnimatedBackground";
-import { DoctorProfileCard } from "@/components/Index/Hero/DoctorProfile";
+import { DoctorProfile } from "@/components/Index/Hero/DoctorProfile";
 import { TextContent } from "@/components/Index/Hero/TextContent";
 import { TrustedBy } from "@/components/Index/Hero/TrustedBy";
 
 import { Navbar } from "@/components/Index/Navbar";
+import { ProfilePreview } from "@/components/Index/ProfilePreview/ProfilePreview";
 
 export default function Home() {
   return (
@@ -16,11 +17,14 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <TextContent />
-            <DoctorProfileCard />
+            <DoctorProfile />
           </div>
         </div>
         <TrustedBy />
       </section>
+
+      {/* profile preview */}
+      <ProfilePreview />
     </main>
   );
 }

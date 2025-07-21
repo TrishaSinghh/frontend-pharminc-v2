@@ -7,7 +7,7 @@ const cardVariants = {
   hover: { scale: 1.02 },
 };
 
-export const DoctorProfileCard = () => (
+export const DoctorProfile = () => (
   <motion.div
     className="lg:w-1/2 flex justify-center items-center"
     variants={cardVariants}
