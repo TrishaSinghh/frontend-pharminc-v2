@@ -11,8 +11,11 @@ import { GlobalMap } from "@/components/Index/GlobalMap";
 
 import { Testimonials } from "@/components/Index/Testimonials";
 
-import { Navbar } from "@/components/Index/Navbar";
 import { TimelineJourney } from "@/components/Index/TimelineJourney";
+
+import { CtaSection } from "@/components/Index/CtaSection";
+
+import { Navbar } from "@/components/Index/Navbar";
 
 export default function Home() {
   return (
@@ -45,6 +48,9 @@ export default function Home() {
 
       {/* timeline journey */}
       <TimelineJourney />
+
+      {/* cta  */}
+      <CtaSection />
     </main>
   );
 }
