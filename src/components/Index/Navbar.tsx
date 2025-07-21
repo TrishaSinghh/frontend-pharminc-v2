@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 import Link from "next/link";
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
     <motion.header
       className="fixed w-full top-0 z-50 bg-white/95 border-b border-gray-100 backdrop-blur-sm"
@@ -73,5 +73,3 @@ const Navbar = () => {
     </motion.header>
   );
 };
-
-export default Navbar;

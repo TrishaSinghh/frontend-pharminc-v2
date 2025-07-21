@@ -1,0 +1,51 @@
+"use client";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+
+export const TextContent = () => (
+  <motion.div
+    className="lg:w-1/2 text-center lg:text-left"
+    initial={{ opacity: 0, x: -30 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.6 }}
+  >
+    <motion.h1
+      className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 mb-6 drop-shadow-lg"
+      initial={{ scale: 0.95, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.2, duration: 0.7 }}
+    >
+      Where Medical Minds Connect
+    </motion.h1>
+    <motion.p
+      className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl mx-auto lg:mx-0"
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3, duration: 0.7 }}
+    >
+      Join a trusted network of healthcare professionals advancing care through
+      collaboration.
+    </motion.p>
+    <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+      <motion.div
+        whileHover={{ scale: 1.05, boxShadow: "0 0 16px #3B82F6" }}
+        onClick={() =>
+          window.open(
+            "https://docs.google.com/forms/d/e/1FAIpQLSdXDI...",
+            "_blank"
+          )
+        }
+        className="cursor-pointer"
+      ></motion.div>
+      <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 16px #3B82F6" }}>
+        <Button
+          size="lg"
+          variant="outline"
+          className="border-[#3B82F6] text-[#3B82F6] hover:bg-[#3B82F6]/5 shadow"
+        >
+          See How It Works
+        </Button>
+      </motion.div>
+    </div>
+  </motion.div>
+);
