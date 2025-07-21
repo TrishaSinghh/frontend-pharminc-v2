@@ -1,12 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
@@ -61,7 +56,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Updated colors for Pharm.Inc design with the exact colors requested
         medical: {
           blue: "#3B82F6",
           lightBlue: "#EFF6FF",
