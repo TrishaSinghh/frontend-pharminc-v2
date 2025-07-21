@@ -12,6 +12,7 @@ import { GlobalMap } from "@/components/Index/GlobalMap";
 import { Testimonials } from "@/components/Index/Testimonials";
 
 import { Navbar } from "@/components/Index/Navbar";
+import { TimelineJourney } from "@/components/Index/TimelineJourney";
 
 export default function Home() {
   return (
@@ -41,6 +42,9 @@ export default function Home() {
 
       {/* testimonials */}
       <Testimonials />
+
+      {/* timeline journey */}
+      <TimelineJourney />
     </main>
   );
 }
