@@ -9,6 +9,8 @@ import { AppFeedDemo } from "@/components/Index/AppFeedDemo";
 
 import { GlobalMap } from "@/components/Index/GlobalMap";
 
+import { Testimonials } from "@/components/Index/Testimonials";
+
 import { Navbar } from "@/components/Index/Navbar";
 
 export default function Home() {
@@ -36,6 +38,9 @@ export default function Home() {
 
       {/* global map */}
       <GlobalMap />
+
+      {/* testimonials */}
+      <Testimonials />
     </main>
   );
 }
