@@ -3,8 +3,11 @@ import { DoctorProfile } from "@/components/Index/Hero/DoctorProfile";
 import { TextContent } from "@/components/Index/Hero/TextContent";
 import { TrustedBy } from "@/components/Index/Hero/TrustedBy";
 
+import { ProfilePreview } from "@/components/Index/ProfilePreview";
+
+import { AppFeedDemo } from "@/components/Index/AppFeedDemo";
+
 import { Navbar } from "@/components/Index/Navbar";
-import { ProfilePreview } from "@/components/Index/ProfilePreview/ProfilePreview";
 
 export default function Home() {
   return (
@@ -25,6 +28,9 @@ export default function Home() {
 
       {/* profile preview */}
       <ProfilePreview />
+
+      {/* app feed demo */}
+      <AppFeedDemo />
     </main>
   );
 }
