@@ -8,6 +8,7 @@ import {
 } from "@/lib/api/types";
 
 export const createUser = async (userData: UserCreateParams): Promise<User> => {
+  console.log("Creating user with data:", userData);
   return apiRequest<User>("user", "/private/user", {
     method: "POST",
     body: JSON.stringify(userData),

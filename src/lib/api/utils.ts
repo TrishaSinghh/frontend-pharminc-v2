@@ -1,4 +1,4 @@
-import { AuthResponse } from './types';
+import { AuthResponse } from "./types";
 
 export const API_BASE_URLS = {
   auth: process.env.NEXT_PUBLIC_API_AUTH!,
@@ -13,15 +13,22 @@ export const API_BASE_URLS = {
 let authToken: string | null = null;
 
 export const setAuthToken = (token: string) => {
-  authToken = token;
+  if (typeof window !== "undefined") {
+    localStorage.setItem("authToken", token);
+  }
 };
 
 export const getAuthToken = (): string | null => {
-  return authToken;
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("authToken");
+  }
+  return null;
 };
 
 export const clearAuthToken = () => {
-  authToken = null;
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("authToken");
+  }
 };
 
 export const apiRequest = async <T>(
@@ -44,12 +51,12 @@ export const apiRequest = async <T>(
 
   // Add auth header if token exists
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...options.headers,
   };
 
-  if (authToken) {
-    headers['Authorization'] = `Bearer ${authToken}`;
+  if (getAuthToken() !== null) {
+    headers["Authorization"] = `Bearer ${getAuthToken()}`;
   }
 
   const response = await fetch(url, {
@@ -69,21 +76,36 @@ export const apiRequest = async <T>(
     return {} as T;
   }
 
-  return response.json();
+  const responseText = await response.text();
+
+  // First try to parse as JSON
+  try {
+    const data = responseText ? JSON.parse(responseText) : {};
+    if (!response.ok) {
+      throw new Error(
+        data.message || `API request failed with status ${response.status}`
+      );
+    }
+    return data as T;
+  } catch (e) {
+    // If JSON parsing fails but we got a successful response
+    if (response.ok) {
+      // For successful plain text responses, return an object with the message
+      return { message: responseText } as T;
+    }
+    // For error responses, throw the text as error
+    throw new Error(responseText);
+  }
 };
 
 export const handleLogin = async (credentials: {
   email: string;
   password: string;
 }): Promise<AuthResponse> => {
-  const response = await apiRequest<AuthResponse>(
-    'auth',
-    '/public/login',
-    {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-    }
-  );
+  const response = await apiRequest<AuthResponse>("auth", "/public/login", {
+    method: "POST",
+    body: JSON.stringify(credentials),
+  });
   setAuthToken(response.token);
   return response;
 };
@@ -93,12 +115,8 @@ export const handleRegister = async (credentials: {
   password: string;
   type?: string;
 }): Promise<void> => {
-  await apiRequest<void>(
-    'auth',
-    '/public/register',
-    {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-    }
-  );
+  await apiRequest<void>("auth", "/public/register", {
+    method: "POST",
+    body: JSON.stringify(credentials),
+  });
 };

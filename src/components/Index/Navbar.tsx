@@ -55,7 +55,7 @@ export const Navbar = () => {
 
         {/* Auth Buttons */}
         <div className="flex items-center gap-3">
-          <Link href="/signup">
+          <Link href="/auth">
             <Button
               variant="ghost"
               className="text-gray-700 hover:text-white-700"
@@ -63,7 +63,7 @@ export const Navbar = () => {
               Log In
             </Button>
           </Link>
-          <Link href="/signup">
+          <Link href="/auth">
             <Button className="bg-blue-700 hover:bg-blue-700 text-white">
               Sign Up
             </Button>
