@@ -12,7 +12,8 @@ import { SocialAuthButtons } from "@/components/auth/SocialButtons";
 import { BackButton } from "@/components/auth/BackButton";
 
 import { useState } from "react";
-import { login, createUser, setAuthToken, register } from "@/lib/api";
+import { login, createUser, setAuthToken, register, getUser } from "@/lib/api";
+import { redirect } from "next/navigation";
 
 export default function HealthcareAuthPage() {
   const [email, setEmail] = useState("");
@@ -39,13 +40,13 @@ export default function HealthcareAuthPage() {
       setAuthToken(token);
 
       // 3. Create user profile with healthcare professional details
-      await createUser({
+      const { id } = await createUser({
         name: `${firstName} ${lastName}`,
         location: location,
         role: "healthcare", // You might want to use this field to distinguish
       });
 
-      alert("Healthcare professional account created successfully!");
+      redirect(`/profile/${id}`);
       // Redirect or show success message
     } catch (error) {
       console.error("API Error:", error);
@@ -60,8 +61,10 @@ export default function HealthcareAuthPage() {
         password: password,
         type: "user",
       });
+
+      const { id } = await getUser();
       setAuthToken(token);
-      alert("Login successful!");
+      redirect(`/profile/${id}`);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error("API Error:", error);

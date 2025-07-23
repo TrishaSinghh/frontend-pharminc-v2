@@ -10,9 +10,15 @@ import { Building } from "lucide-react";
 import { SocialAuthButtons } from "@/components/auth/SocialButtons";
 import { SidePanel } from "@/components/auth/SidePanel";
 import { BackButton } from "@/components/auth/BackButton";
-
 import { useState } from "react";
-import { login, createInstitution, setAuthToken, register } from "@/lib/api";
+import {
+  login,
+  createInstitution,
+  setAuthToken,
+  register,
+  getInstitution,
+} from "@/lib/api";
+import { redirect } from "next/navigation";
 
 export default function InstitutionAuthPage() {
   const [email, setEmail] = useState("");
@@ -39,13 +45,13 @@ export default function InstitutionAuthPage() {
       setAuthToken(token);
 
       // 3. Create institution profile
-      await createInstitution({
+      const { id } = await createInstitution({
         name: name,
         location: location,
         type: type,
       });
 
-      alert("Institution account created successfully!");
+      redirect(`/profile/${id}`);
       // Redirect or show success message
     } catch (error) {
       console.error("API Error:", error);
@@ -60,8 +66,10 @@ export default function InstitutionAuthPage() {
         password: password,
         type: "institution",
       });
+
+      const { id } = await getInstitution();
       setAuthToken(token);
-      alert("Login successful!");
+      redirect(`/profile/${id}`);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error("API Error:", error);
