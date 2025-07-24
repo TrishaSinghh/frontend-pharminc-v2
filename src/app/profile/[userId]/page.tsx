@@ -10,14 +10,12 @@ import { ProfilePostsTab } from "@/components/profile/internals/ProfilePostsTab"
 import { ProfileActivityTab } from "@/components/profile/internals/ProfileActivityTab";
 import { ProfileAnalyticsCard } from "@/components/profile/cards/ProfileAnalyticsCard";
 import { ProfileResourcesCard } from "@/components/profile/cards/ProfileResourcesCard";
-import { ProfileActivityCard } from "@/components/profile/cards/ProfileActivityCard";
-import { ProfileInstitutionCard } from "@/components/profile/cards/ProfileInstitutionCard";
 import { ProfileConnectionsCard } from "@/components/profile/cards/ProfileConnectionsCard";
 import { ProfileTrendingTagsCard } from "@/components/profile/cards/ProfileTrendingTagsCard";
 import { Card } from "@/components/ui/card";
 import { useState, useEffect, use } from "react";
 
-import { getUserById, getInstitutionById } from "@/lib/api";
+import { getUserById, getInstitutionById, getUser } from "@/lib/api";
 
 export default function ProfilePage({
   params,
@@ -97,8 +95,6 @@ export default function ProfilePage({
   }
 
   const user = profileData;
-  const experience = profileData.experiences;
-  const education = profileData.educations;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50/30">
@@ -109,7 +105,6 @@ export default function ProfilePage({
             <ProfileSidebar user={user} />
             <ProfileAnalyticsCard />
             <ProfileResourcesCard />
-            <ProfileActivityCard />
           </div>
 
           {/* Main Content */}
@@ -120,7 +115,7 @@ export default function ProfilePage({
 
             <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            {activeTab === "About" && <ProfileAboutTab user={user} />}
+            {activeTab === "About" && <ProfileAboutTab userId={userId} />}
             {activeTab === "Experience" && (
               <ProfileExperienceTab userId={userId} />
             )}
@@ -133,7 +128,6 @@ export default function ProfilePage({
 
           {/* Right Sidebar: Institution */}
           <div className="col-span-3 space-y-6">
-            <ProfileInstitutionCard institution={institution} />
             <ProfileConnectionsCard />
             <ProfileTrendingTagsCard />
           </div>
