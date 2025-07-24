@@ -11,7 +11,7 @@ import { SidePanel } from "@/components/auth/SidePanel";
 import { SocialAuthButtons } from "@/components/auth/SocialButtons";
 import { BackButton } from "@/components/auth/BackButton";
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { login, createUser, setAuthToken, register, getUser } from "@/lib/api";
 
@@ -21,6 +21,8 @@ export default function DoctorAuthPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [location, setLocation] = useState("");
+
+  const router = useRouter();
 
   const createAccount = async () => {
     try {
@@ -43,8 +45,7 @@ export default function DoctorAuthPage() {
         role: "doctor",
       });
 
-      console.log(id);
-      redirect(`/profile/${id}`);
+      router.push(`/profile/${id}`);
     } catch (error) {
       console.error("API Error:", error);
       alert("Account creation failed. Please try again.");
@@ -59,9 +60,9 @@ export default function DoctorAuthPage() {
         type: "user",
       });
 
-      const { id } = await getUser();
       setAuthToken(token);
-      redirect(`/profile/${id}`);
+      const { id } = await getUser();
+      router.push(`/profile/${id}`);
     } catch (error) {
       console.error("API Error:", error);
       alert("Login failed. Please try again.");

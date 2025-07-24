@@ -15,23 +15,21 @@ import { ProfileInstitutionCard } from "@/components/profile/cards/ProfileInstit
 import { ProfileConnectionsCard } from "@/components/profile/cards/ProfileConnectionsCard";
 import { ProfileTrendingTagsCard } from "@/components/profile/cards/ProfileTrendingTagsCard";
 import { Card } from "@/components/ui/card";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 
 import { getUserById, getInstitutionById } from "@/lib/api";
 
-interface ProfilePageProps {
-  params: {
-    userId: string;
-  };
-}
-
-export default function ProfilePage({ params }: ProfilePageProps) {
+export default function ProfilePage({
+  params,
+}: {
+  params: Promise<{ userId: string }>;
+}) {
   const [activeTab, setActiveTab] = useState("Posts");
   const [profileData, setProfileData] = useState<any>(null);
   const [institution, setInstitution] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const userId = params.userId;
+  const userId = use(params).userId;
 
   useEffect(() => {
     if (!userId) return;
@@ -124,10 +122,10 @@ export default function ProfilePage({ params }: ProfilePageProps) {
 
             {activeTab === "About" && <ProfileAboutTab user={user} />}
             {activeTab === "Experience" && (
-              <ProfileExperienceTab experience={experience} />
+              <ProfileExperienceTab userId={userId} />
             )}
             {activeTab === "Education" && (
-              <ProfileEducationTab education={education} />
+              <ProfileEducationTab userId={userId} />
             )}
             {activeTab === "Posts" && <ProfilePostsTab />}
             {activeTab === "Activity" && <ProfileActivityTab />}

@@ -13,7 +13,7 @@ import { BackButton } from "@/components/auth/BackButton";
 
 import { useState } from "react";
 import { login, createUser, setAuthToken, register, getUser } from "@/lib/api";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function HealthcareAuthPage() {
   const [email, setEmail] = useState("");
@@ -21,6 +21,8 @@ export default function HealthcareAuthPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [location, setLocation] = useState("");
+
+  const router = useRouter();
 
   const createAccount = async () => {
     try {
@@ -45,8 +47,7 @@ export default function HealthcareAuthPage() {
         location: location,
         role: "healthcare", // You might want to use this field to distinguish
       });
-
-      redirect(`/profile/${id}`);
+      router.push(`/profile/${id}`);
       // Redirect or show success message
     } catch (error) {
       console.error("API Error:", error);
@@ -62,9 +63,10 @@ export default function HealthcareAuthPage() {
         type: "user",
       });
 
+      setAuthToken(token);
       const { id } = await getUser();
       setAuthToken(token);
-      redirect(`/profile/${id}`);
+      router.push(`/profile/${id}`);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error("API Error:", error);

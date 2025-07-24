@@ -100,8 +100,8 @@ export interface Education {
   description: string;
   start_date: string;
   end_date: string | null;
-  userId: string;
-  institutionId: string;
+  user_id: string;
+  institution_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -111,7 +111,7 @@ export interface EducationParams {
   description: string;
   start_date: string;
   end_date?: string | null;
-  institutionId: string;
+  institution_id: string;
 }
 
 export interface Experience {
@@ -120,8 +120,8 @@ export interface Experience {
   description: string;
   start_date: string;
   end_date: string | null;
-  userId: string;
-  institutionId: string;
+  user_id: string;
+  institution_id: string;
   created_at: string;
   updated_at: string;
 }
@@ -131,7 +131,7 @@ export interface ExperienceParams {
   description: string;
   start_date: string;
   end_date?: string | null;
-  institutionId: string;
+  institution_id: string;
 }
 
 // Institute types

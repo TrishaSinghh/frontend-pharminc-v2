@@ -7,15 +7,22 @@ import {
 } from "@/lib/api/types";
 
 // Education endpoints
-export const createEducation = async (
-  educationData: EducationParams
-): Promise<Education> => {
+export const createEducation = async (educationData: {
+  institution_id: string; // camelCase
+  title: string;
+  description?: string;
+  start_date: string; // YYYY-MM-DD
+  end_date?: string | null; // YYYY-MM-DD or null
+}): Promise<Education> => {
   return apiRequest<Education>("background", "/private/education", {
     method: "POST",
     body: JSON.stringify(educationData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 };
-
 export const updateEducation = async (
   id: string,
   educationData: Partial<EducationParams>
