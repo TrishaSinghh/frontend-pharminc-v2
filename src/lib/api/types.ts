@@ -13,7 +13,7 @@ export interface AuthResponse {
 export interface User {
   id: string;
   name: string;
-  location: string;
+  location?: string;
   role: string;
   created_at: string;
   updated_at: string;

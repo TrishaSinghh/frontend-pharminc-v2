@@ -16,6 +16,7 @@ import { TimelineJourney } from "@/components/Index/TimelineJourney";
 import { CtaSection } from "@/components/Index/CtaSection";
 
 import { Navbar } from "@/components/Index/Navbar";
+import { Footer } from "@/components/Index/Footer";
 
 export default function Home() {
   return (
@@ -51,6 +52,9 @@ export default function Home() {
 
       {/* cta  */}
       <CtaSection />
+
+      {/* footer */}
+      <Footer />
     </main>
   );
 }
