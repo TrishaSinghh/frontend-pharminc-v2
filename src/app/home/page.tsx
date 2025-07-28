@@ -176,8 +176,8 @@ export default function HomeFeed() {
         likes: newPost.reactions || 0,
         comments: 0,
         shares: newPost.shares || 0,
-        ...(newPost.imageId && {
-          image: `https://content.api.pharminc.in/image/${newPost.imageId}`,
+        ...(newPost.attachment_id && {
+          image: `https://content.api.pharminc.in/image/${newPost.attachment_id}`,
         }),
       };
 

@@ -18,7 +18,7 @@ import {
   register,
   getInstitution,
 } from "@/lib/api";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function InstitutionAuthPage() {
   const [email, setEmail] = useState("");
@@ -26,6 +26,8 @@ export default function InstitutionAuthPage() {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [type, setType] = useState("hospital"); // Default type
+
+  const router = useRouter();
 
   const createAccount = async () => {
     try {
@@ -51,7 +53,7 @@ export default function InstitutionAuthPage() {
         type: type,
       });
 
-      redirect(`/profile/${id}`);
+      router.push(`/institute/${id}`);
       // Redirect or show success message
     } catch (error) {
       console.error("API Error:", error);
@@ -69,7 +71,7 @@ export default function InstitutionAuthPage() {
 
       const { id } = await getInstitution();
       setAuthToken(token);
-      redirect(`/profile/${id}`);
+      router.push(`/institute/${id}`);
       // Redirect to dashboard or home page
     } catch (error) {
       console.error("API Error:", error);
