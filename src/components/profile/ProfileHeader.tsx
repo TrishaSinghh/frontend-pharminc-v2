@@ -64,8 +64,8 @@ export const ProfileHeader = ({
         const connections = await getUserConnections(user.id);
         const connection = connections.find(
           (c) =>
-            (c.user1Id === currentUserId && c.user2Id === user.id) ||
-            (c.user1Id === user.id && c.user2Id === currentUserId)
+            (c.user1Id === currentUserId && c.user2_id === user.id) ||
+            (c.user1Id === user.id && c.user2_id === currentUserId)
         );
 
         if (connection) {
@@ -125,14 +125,14 @@ export const ProfileHeader = ({
     setIsLoading((prev) => ({ ...prev, connect: true }));
     try {
       if (isConnected || hasPendingRequest) {
-        await disconnectUser({ user2Id: user.id });
+        await disconnectUser({ user2_id: user.id });
         setIsConnected(false);
         setHasPendingRequest(false);
         if (isConnected) {
           setConnectionsCount((prev) => prev - 1);
         }
       } else {
-        await connectUser({ user2Id: user.id });
+        await connectUser({ user2_id: user.id });
         setHasPendingRequest(true);
       }
     } catch (error) {
@@ -164,7 +164,7 @@ export const ProfileHeader = ({
 
     setIsLoading((prev) => ({ ...prev, reject: true }));
     try {
-      await disconnectUser({ user2Id: user.id });
+      await disconnectUser({ user2_id: user.id });
       setHasIncomingRequest(false);
     } catch (error) {
       console.error("Error rejecting connection:", error);

@@ -83,7 +83,7 @@ export interface Follow extends FollowParams {
 }
 
 export interface ConnectParams {
-  user2Id: string;
+  user2_id: string;
 }
 
 export interface Connect extends ConnectParams {
