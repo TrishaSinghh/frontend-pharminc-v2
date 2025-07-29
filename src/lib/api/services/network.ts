@@ -3,6 +3,7 @@ import { Follow, FollowParams, Connect, ConnectParams } from "@/lib/api/types";
 
 // Follow endpoints
 export const followUser = async (params: FollowParams): Promise<Follow> => {
+  console.log("Following user with params:", params);
   return apiRequest<Follow>("network", "/private/follow", {
     method: "POST",
     body: JSON.stringify(params),

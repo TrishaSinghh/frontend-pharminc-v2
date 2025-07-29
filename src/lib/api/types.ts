@@ -73,7 +73,7 @@ export interface PaginatedResponse<T> {
 
 // Network types
 export interface FollowParams {
-  user2Id: string;
+  user2_id: string;
 }
 
 export interface Follow extends FollowParams {

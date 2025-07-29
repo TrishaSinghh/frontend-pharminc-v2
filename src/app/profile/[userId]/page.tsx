@@ -13,72 +13,75 @@ import { ProfileResourcesCard } from "@/components/profile/cards/ProfileResource
 import { ProfileConnectionsCard } from "@/components/profile/cards/ProfileConnectionsCard";
 import { ProfileTrendingTagsCard } from "@/components/profile/cards/ProfileTrendingTagsCard";
 import { Card } from "@/components/ui/card";
-import { useState, useEffect, use } from "react";
-
-import { getUserById, getInstitutionById, getUser } from "@/lib/api";
+import { useState, useEffect } from "react";
+import { getUserById, getUser } from "@/lib/api";
+import { getAuthToken } from "@/lib/api/utils";
 
 export default function ProfilePage({
   params,
 }: {
-  params: Promise<{ userId: string }>;
+  params: { userId: string };
 }) {
   const [activeTab, setActiveTab] = useState("Posts");
   const [profileData, setProfileData] = useState<any>(null);
-  const [institution, setInstitution] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
-  const userId = use(params).userId;
-
+  // Get current user ID from token or API
   useEffect(() => {
-    if (!userId) return;
+    const getCurrentUserId = async () => {
+      try {
+        const token = getAuthToken();
+        if (token) {
+          try {
+            // First try to decode from JWT token
+            const payload = JSON.parse(atob(token.split(".")[1]));
+            const userId = payload.userId || payload.sub || payload.id;
+            if (userId) {
+              setCurrentUserId(userId);
+              return;
+            }
+          } catch (error) {
+            console.warn("Error decoding token, fetching user data:", error);
+          }
 
-    setLoading(true);
-
-    getUserById(userId)
-      .then((data) => {
-        setProfileData(data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setProfileData(null);
-      })
-      .finally(() => setLoading(false));
-  }, [userId]);
-
-  // Fetch institution
-  useEffect(() => {
-    if (!profileData) return;
-
-    let institutionId = profileData.user?.institutionId;
-
-    // If no institutionId in user object, check educations and experiences
-    if (!institutionId) {
-      if (profileData.educations) {
-        // If educations is an array, take the first one
-        const education = Array.isArray(profileData.educations)
-          ? profileData.educations[0]
-          : profileData.educations;
-        institutionId = education?.institutionId;
+          // If token decode fails, fetch current user data
+          try {
+            const currentUser = await getUser();
+            setCurrentUserId(currentUser.id);
+          } catch (error) {
+            console.error("Error fetching current user:", error);
+          }
+        }
+      } catch (error) {
+        console.error("Error getting current user ID:", error);
       }
+    };
 
-      if (!institutionId && profileData.experiences) {
-        // If experiences is an array, take the first one
-        const experience = Array.isArray(profileData.experiences)
-          ? profileData.experiences[0]
-          : profileData.experiences;
-        institutionId = experience?.institutionId;
-      }
-    }
+    getCurrentUserId();
+  }, []);
 
-    if (institutionId) {
-      getInstitutionById(institutionId)
-        .then(setInstitution)
-        .catch(() => setInstitution(null));
-    }
-  }, [profileData]);
   // Fetch profile data
+  useEffect(() => {
+    if (!params.userId) return;
 
-  if (loading && !profileData) {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await getUserById(params.userId);
+        setProfileData(data);
+      } catch (err) {
+        console.error("Error fetching profile data:", err);
+        setProfileData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [params.userId]);
+
+  if (loading) {
     return (
       <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50/30 flex items-center justify-center">
         <div className="text-xl text-gray-700">Loading profile...</div>
@@ -89,12 +92,10 @@ export default function ProfilePage({
   if (!profileData) {
     return (
       <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50/30 flex items-center justify-center">
-        <div className="text-xl text-gray-700">No profile data found.</div>
+        <div className="text-xl text-gray-700">Profile not found</div>
       </div>
     );
   }
-
-  const user = profileData;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50/30">
@@ -102,7 +103,7 @@ export default function ProfilePage({
         <div className="grid grid-cols-12 gap-8">
           {/* Left Sidebar */}
           <div className="col-span-3">
-            <ProfileSidebar user={user} />
+            <ProfileSidebar user={profileData} />
             <ProfileAnalyticsCard />
             <ProfileResourcesCard />
           </div>
@@ -110,23 +111,29 @@ export default function ProfilePage({
           {/* Main Content */}
           <div className="col-span-6">
             <Card className="mb-8 rounded-xl shadow-lg border-0 overflow-hidden bg-white/90 backdrop-blur-xs hover:shadow-xl transition-shadow duration-300">
-              <ProfileHeader user={user} institution={institution} />
+              <ProfileHeader
+                user={profileData}
+                institution={null}
+                currentUserId={currentUserId || ""}
+              />
             </Card>
 
             <ProfileTabs activeTab={activeTab} setActiveTab={setActiveTab} />
 
-            {activeTab === "About" && <ProfileAboutTab userId={userId} />}
+            {activeTab === "About" && (
+              <ProfileAboutTab userId={params.userId} />
+            )}
             {activeTab === "Experience" && (
-              <ProfileExperienceTab userId={userId} />
+              <ProfileExperienceTab userId={params.userId} />
             )}
             {activeTab === "Education" && (
-              <ProfileEducationTab userId={userId} />
+              <ProfileEducationTab userId={params.userId} />
             )}
             {activeTab === "Posts" && <ProfilePostsTab />}
             {activeTab === "Activity" && <ProfileActivityTab />}
           </div>
 
-          {/* Right Sidebar: Institution */}
+          {/* Right Sidebar */}
           <div className="col-span-3 space-y-6">
             <ProfileConnectionsCard />
             <ProfileTrendingTagsCard />
