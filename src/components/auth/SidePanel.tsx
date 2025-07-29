@@ -45,6 +45,7 @@ export function SidePanel() {
               knowledge and expertise.
             </p>
           </div>
+
           <motion.div
             className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 mb-6"
             initial={{ opacity: 0, y: 20 }}
@@ -67,62 +68,7 @@ export function SidePanel() {
               with specialists worldwide.
             </p>
           </motion.div>
-          <motion.div
-            className="bg-white rounded-xl p-6 shadow-lg border border-gray-100"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <div className="flex justify-between mb-2">
-              <span className="text-sm text-gray-500">Members</span>
-              <span className="text-sm font-medium">25,000+</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
-              <div
-                className="bg-[#3B82F6] h-1.5 rounded-full"
-                style={{ width: "70%" }}
-              ></div>
-            </div>
-
-            <div className="flex justify-between mt-4 mb-2">
-              <span className="text-sm text-gray-500">Specialties</span>
-              <span className="text-sm font-medium">50+</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
-              <div
-                className="bg-[#3B82F6] h-1.5 rounded-full"
-                style={{ width: "85%" }}
-              ></div>
-            </div>
-
-            <div className="flex justify-between mt-4 mb-2">
-              <span className="text-sm text-gray-500">Countries</span>
-              <span className="text-sm font-medium">120+</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
-              <div
-                className="bg-[#3B82F6] h-1.5 rounded-full"
-                style={{ width: "92%" }}
-              ></div>
-            </div>
-          </motion.div>
         </motion.div>
-        <div className="text-center">
-          <p className="text-gray-600 mb-2">
-            Trusted by leading medical institutions
-          </p>
-          <div className="flex justify-center space-x-6 opacity-70">
-            <span className="font-serif font-bold text-gray-400">
-              Mayo Clinic
-            </span>
-            <span className="font-serif font-bold text-gray-400">
-              Johns Hopkins
-            </span>
-            <span className="font-serif font-bold text-gray-400">
-              Cleveland Clinic
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
