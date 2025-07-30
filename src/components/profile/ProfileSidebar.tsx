@@ -1,9 +1,10 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { User } from "@/lib/api";
 
 interface ProfileSidebarProps {
-  user: any;
+  user: User;
 }
 
 export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
@@ -14,11 +15,11 @@ export const ProfileSidebar = ({ user }: ProfileSidebarProps) => {
         <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
           <Avatar className="h-16 w-16 border-4 border-white shadow-lg">
             <AvatarImage
-              src={user?.profilePicture || "/pp.png"}
-              alt={user?.firstName || "User"}
+              src={user?.profile_picture || "/pp.png"}
+              alt={user?.name || "User"}
             />
             <AvatarFallback className="bg-linear-to-br from-blue-100 to-indigo-100 text-blue-700 font-bold">
-              {user?.firstName?.[0] || "U"}
+              {user?.name?.[0] || "U"}
             </AvatarFallback>
           </Avatar>
         </div>

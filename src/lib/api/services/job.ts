@@ -36,10 +36,10 @@ export const searchJobs = async (
   params: JobSearchParams
 ): Promise<PaginatedResponse<Job>> => {
   return apiRequest<PaginatedResponse<Job>>(
-    "job",
+    "user",
     "/public/job/search",
     { method: "GET" },
-    params
+    params as unknown as Record<string, unknown>
   );
 };
 

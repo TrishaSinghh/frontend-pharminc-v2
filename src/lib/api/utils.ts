@@ -1,6 +1,6 @@
 import { AuthResponse } from "./types";
 
-export const API_BASE_URLS = {
+const API_BASE_URLS = {
   auth: process.env.NEXT_PUBLIC_API_AUTH!,
   user: process.env.NEXT_PUBLIC_API_USER!,
   network: process.env.NEXT_PUBLIC_API_NETWORK!,
@@ -9,8 +9,6 @@ export const API_BASE_URLS = {
   job: process.env.NEXT_PUBLIC_API_JOB!,
   content: process.env.NEXT_PUBLIC_API_CONTENT!,
 };
-
-let authToken: string | null = null;
 
 export const setAuthToken = (token: string) => {
   if (typeof window !== "undefined") {
@@ -35,7 +33,7 @@ export const apiRequest = async <T>(
   service: keyof typeof API_BASE_URLS,
   endpoint: string,
   options: RequestInit = {},
-  params?: Record<string, any>
+  params?: Record<string, unknown>
 ): Promise<T> => {
   // Add query params if they exist
   let url = `${API_BASE_URLS[service]}${endpoint}`;
@@ -87,7 +85,7 @@ export const apiRequest = async <T>(
       );
     }
     return data as T;
-  } catch (e) {
+  } catch (error) {
     // If JSON parsing fails but we got a successful response
     if (response.ok) {
       // For successful plain text responses, return an object with the message

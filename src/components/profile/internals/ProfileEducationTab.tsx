@@ -33,8 +33,38 @@ const formatDate = (dateString: string | null, isCurrent?: boolean) => {
 };
 
 export const ProfileEducationTab = ({ userId }: ProfileEducationTabProps) => {
-  const [educations, setEducations] = useState<any[]>([]);
-  const [institutions, setInstitutions] = useState<any[]>([]);
+  const [educations, setEducations] = useState<Array<{
+    id: string;
+    title: string;
+    description: string;
+    start_date: string;
+    end_date: string | null;
+    user_id: string;
+    institution_id: string;
+    created_at: string;
+    updated_at: string;
+    institutionName?: string;
+    institutionLogo?: string;
+  }>>([]);
+  const [institutions, setInstitutions] = useState<Array<{
+    id: string;
+    name: string;
+    location: string;
+    type: string;
+    created_at: string;
+    updated_at: string;
+    verified?: boolean;
+    email?: string;
+    employees_count?: string;
+    area_of_expertise?: string;
+    profile_picture?: string;
+    banner_picture?: string;
+    contact_email?: string;
+    contact_number?: string;
+    bio?: string;
+    about?: string;
+    followers?: number;
+  }>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isInstitutionLoading, setIsInstitutionLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,7 +89,17 @@ export const ProfileEducationTab = ({ userId }: ProfileEducationTabProps) => {
         const data = await getUserEducations(userId);
         // Enrich with institution data
         const enrichedData = await Promise.all(
-          data.map(async (edu: any) => {
+          data.map(async (edu: {
+            id: string;
+            title: string;
+            description: string;
+            start_date: string;
+            end_date: string | null;
+            user_id: string;
+            institution_id: string;
+            created_at: string;
+            updated_at: string;
+          }) => {
             try {
               const institution = await getInstitutionById(edu.institution_id);
               return {
@@ -134,7 +174,25 @@ export const ProfileEducationTab = ({ userId }: ProfileEducationTabProps) => {
     }));
   };
 
-  const handleInstitutionSelect = (institution: any) => {
+  const handleInstitutionSelect = (institution: {
+    id: string;
+    name: string;
+    location: string;
+    type: string;
+    created_at: string;
+    updated_at: string;
+    verified?: boolean;
+    email?: string;
+    employees_count?: string;
+    area_of_expertise?: string;
+    profile_picture?: string;
+    banner_picture?: string;
+    contact_email?: string;
+    contact_number?: string;
+    bio?: string;
+    about?: string;
+    followers?: number;
+  }) => {
     setFormData((prev) => ({
       ...prev,
       institutionId: institution.id,

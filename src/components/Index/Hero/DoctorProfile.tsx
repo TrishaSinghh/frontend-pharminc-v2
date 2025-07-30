@@ -69,7 +69,7 @@ export const DoctorProfile = () => (
               Recent Activity
             </h4>
             <p className="text-gray-800 mt-1">
-              Co-led cancer awareness drive in Lucknow's govt hospital
+              Co-led cancer awareness drive in Lucknow&apos;s govt hospital
             </p>
           </motion.div>
           <motion.div

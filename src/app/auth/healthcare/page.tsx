@@ -62,7 +62,6 @@ export default function HealthcareAuthPage() {
         password: password,
         type: "user",
       });
-
       setAuthToken(token);
       const { id } = await getUser();
       setAuthToken(token);
@@ -242,7 +241,7 @@ export default function HealthcareAuthPage() {
                 </Button>
                 <div className="text-center mt-4">
                   <p className="text-sm text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <Link
                       href="/auth/healthcare?tab=signup"
                       className="text-[#3B82F6] hover:underline"

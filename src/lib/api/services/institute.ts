@@ -47,10 +47,10 @@ export const searchInstitutions = async (
   params: InstitutionSearchParams
 ): Promise<PaginatedResponse<Institution>> => {
   return apiRequest<PaginatedResponse<Institution>>(
-    "institute",
+    "user",
     "/public/institution/search",
     { method: "GET" },
-    params
+    params as unknown as Record<string, unknown>
   );
 };
 

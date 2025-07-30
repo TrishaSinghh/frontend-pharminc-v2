@@ -78,7 +78,7 @@ export const searchPosts = async (
     "content",
     "/public/post/search",
     { method: "GET" },
-    params
+    params as unknown as Record<string, unknown>
   );
 };
 
@@ -218,7 +218,7 @@ export const searchComments = async (
     "content",
     "/public/comment/search",
     { method: "GET" },
-    params
+    params as unknown as Record<string, unknown>
   );
 };
 

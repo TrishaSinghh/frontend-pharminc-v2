@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Institution } from "@/lib/api";
 
 interface ProfileInstitutionCardProps {
-  institution: any;
+  institution: Institution | null;
 }
 
 export const ProfileInstitutionCard = ({

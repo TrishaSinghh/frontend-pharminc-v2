@@ -15,7 +15,7 @@ interface PostComposerProps {
   setPostContent: (value: string) => void;
   postAttachmentId: string;
   setPostAttachmentId: (value: string) => void;
-  onPostCreated: (newPost: any) => void;
+  onPostCreated: (newPost: { id: string; title: string; content: string; attachment_id?: string }) => void;
   posting: boolean;
   setPosting: (value: boolean) => void;
   user: User;
@@ -55,7 +55,7 @@ export default function PostComposer({
 
     try {
       // First upload the file if there is one
-      let attachmentId = postAttachmentId;
+      const attachmentId = postAttachmentId;
       if (selectedFile) {
         // Here you would implement file upload logic
         // const uploadResponse = await uploadFile(selectedFile);

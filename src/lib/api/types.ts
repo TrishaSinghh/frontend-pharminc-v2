@@ -341,7 +341,7 @@ export interface Application {
   portfolio_url?: string | null;
   status?: "pending" | "reviewed" | "shortlisted" | "rejected" | "hired";
   notes?: string | null;
-  additional_info?: any;
+  additional_info?: Record<string, unknown>;
   applied_at: string;
   reviewed_at?: string | null;
   responded_at?: string | null;
@@ -354,7 +354,7 @@ export interface ApplicationCreateParams {
   portfolio_url?: string;
   status?: "pending" | "reviewed" | "shortlisted" | "rejected" | "hired";
   notes?: string;
-  additional_info?: any;
+  additional_info?: Record<string, unknown>;
 }
 
 export interface ApplicationUpdateParams {
@@ -363,7 +363,7 @@ export interface ApplicationUpdateParams {
   portfolio_url?: string;
   status?: "pending" | "reviewed" | "shortlisted" | "rejected" | "hired";
   notes?: string;
-  additional_info?: any;
+  additional_info?: Record<string, unknown>;
   reviewed_at?: string;
   responded_at?: string;
 }

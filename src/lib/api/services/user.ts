@@ -41,7 +41,7 @@ export const searchUsers = async (
     "user",
     "/public/user/search",
     { method: "GET" },
-    params
+    params as unknown as Record<string, unknown>
   );
 };
 

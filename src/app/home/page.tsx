@@ -31,9 +31,11 @@ export default function HomeFeed() {
       try {
         const userData = await getUser();
         setUser({
-          ...userData,
-          roles: userData.roles || [],
-          online: true,
+          id: userData.id,
+          name: userData.name,
+          role: userData.role,
+          profilePicture: userData.profile_picture,
+          location: userData.location,
         });
         // Add current user to cache
         setUserCache((prev) => ({
@@ -94,7 +96,7 @@ export default function HomeFeed() {
         }, {} as Record<string, User>);
 
         const transformedPosts = await Promise.all(
-          fetchedPosts.map(async (post: any) => {
+          fetchedPosts.map(async (post: { id: string; auth: string; created_at: string; content: string; title: string; reactions?: number; shares?: number; imageId?: string }) => {
             const author = authorsMap[post.auth] || {
               id: post.auth,
               name: "Unknown User",
@@ -104,14 +106,14 @@ export default function HomeFeed() {
 
             return {
               id: post.id,
-              author: author.name,
+              author: author.name || "Unknown User",
               avatar: author.profilePicture || "/pp.png",
               role: author.role || "Medical Professional",
               time: new Date(post.created_at).toLocaleString(),
               content: post.content,
               title: post.title,
               tags: [],
-              type: "Post",
+              type: "Research Paper" as const,
               likes: post.reactions || 0,
               comments: 0,
               shares: post.shares || 0,
@@ -138,7 +140,7 @@ export default function HomeFeed() {
     };
 
     fetchPosts();
-  }, []);
+  }, [fetchUserForPost]);
 
   const handleLogout = () => {
     console.log("Logging out...");
@@ -165,14 +167,14 @@ export default function HomeFeed() {
 
       const formattedPost: Post = {
         id: newPost.id,
-        author: user.name,
+        author: user.name || "Unknown User",
         avatar: user.profilePicture || "/pp.png",
         role: user.role || "Medical Professional",
         time: "Just now",
         content: newPost.content,
         title: newPost.title,
         tags: [],
-        type: "Post",
+        type: "Research Paper" as const,
         likes: newPost.reactions || 0,
         comments: 0,
         shares: newPost.shares || 0,
@@ -198,19 +200,6 @@ export default function HomeFeed() {
     } finally {
       setPosting(false);
     }
-  };
-
-  const handlePostSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!postTitle || !postContent) {
-      toast.error("Title and Content are required!");
-      return;
-    }
-    handlePostCreated({
-      title: postTitle,
-      content: postContent,
-      attachment_id: postAttachmentId || undefined,
-    });
   };
 
   const handleLike = (postId: number | string) => {

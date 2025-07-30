@@ -14,11 +14,13 @@ import {
   getConnectionCount,
   getUserConnections,
   getUserFollowers,
+  User,
+  Institution,
 } from "@/lib/api";
 
 interface ProfileHeaderProps {
-  user: any;
-  institution: any;
+  user: User | null;
+  institution: Institution | null;
   currentUserId: string;
 }
 

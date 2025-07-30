@@ -73,7 +73,7 @@ export const Testimonials = () => {
                   />
                 ))}
               </div>
-              <p className="text-gray-700 italic mb-6">"{testimonial.quote}"</p>
+              <p className="text-gray-700 italic mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
               <div className="flex items-center">
                 <div className="w-12 h-12 rounded-full bg-medical-light-teal mr-4 flex items-center justify-center">
                   <span className="text-medical-teal font-bold">

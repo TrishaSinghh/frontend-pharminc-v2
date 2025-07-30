@@ -250,7 +250,7 @@ export default function InstitutionAuthPage() {
                 </Button>
                 <div className="text-center mt-4">
                   <p className="text-sm text-gray-600">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <Link
                       href="/auth/institution?tab=signup"
                       className="text-[#3B82F6] hover:underline"
