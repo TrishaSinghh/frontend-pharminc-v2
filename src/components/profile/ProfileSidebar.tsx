@@ -12,7 +12,7 @@ import { User } from "@/components/homefeed/types";
 
 interface LeftSidebarProps {
   user: User;
-  handleLogout: () => void;
+  handleLogout?: () => void;
 }
 
 export default function LeftSidebar({ user, handleLogout }: LeftSidebarProps) {
