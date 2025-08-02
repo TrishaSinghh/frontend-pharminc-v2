@@ -1,15 +1,13 @@
 "use client";
 
 import { ProfileHeader } from "@/components/profile/ProfileHeader";
-import { ProfileSidebar } from "@/components/profile/ProfileSidebar";
+import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import { ProfileTabs } from "@/components/profile/ProfileTabs";
 import { ProfileAboutTab } from "@/components/profile/internals/ProfileAboutTab";
 import { ProfileExperienceTab } from "@/components/profile/internals/ProfileExperienceTab";
 import { ProfileEducationTab } from "@/components/profile/internals/ProfileEducationTab";
 import { ProfilePostsTab } from "@/components/profile/internals/ProfilePostsTab";
 import { ProfileActivityTab } from "@/components/profile/internals/ProfileActivityTab";
-import { ProfileAnalyticsCard } from "@/components/profile/cards/ProfileAnalyticsCard";
-import { ProfileResourcesCard } from "@/components/profile/cards/ProfileResourcesCard";
 import { ProfileConnectionsCard } from "@/components/profile/cards/ProfileConnectionsCard";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
@@ -33,20 +31,11 @@ export function InstitutionProfileClient({ institutionData, instituteId }: Insti
               id: institutionData?.id || "",
               name: institutionData?.name || "",
               role: institutionData?.type || "",
-              profile_picture: institutionData?.profile_picture,
-              banner_picture: institutionData?.banner_picture,
-              bio: institutionData?.bio,
-              about: institutionData?.about,
-              followers: institutionData?.followers,
-              connections: 0,
-              created_at: institutionData?.created_at || "",
-              updated_at: institutionData?.updated_at || "",
-              email: "",
+              profilePicture: institutionData?.profile_picture,
+              
               location: institutionData?.location,
-              verified: institutionData?.verified,
             }} />
-            <ProfileAnalyticsCard />
-            <ProfileResourcesCard />
+            
           </div>
 
           {/* Main Content - Reused exactly as is */}
